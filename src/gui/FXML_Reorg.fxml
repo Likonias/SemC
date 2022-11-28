@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="300.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.FXML_ReorgController">
+   <children>
+      <Button fx:id="btnOk" layoutX="85.0" layoutY="218.0" mnemonicParsing="false" onAction="#onActBtnOk" text="Ok" />
+      <Button fx:id="btnCancel" layoutX="75.0" layoutY="252.0" mnemonicParsing="false" onAction="#onActBtnCancel" text="Cancel" />
+      <ChoiceBox fx:id="choiceBox" layoutX="25.0" layoutY="36.0" prefWidth="150.0" />
+   </children>
+</AnchorPane>
