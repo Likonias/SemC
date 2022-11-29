@@ -4,8 +4,6 @@
  */
 package gui;
 
-import abstroPackage.AbstrHeap;
-import abstroPackage.AbstrTable;
 import druhPamatek.Gps;
 import druhPamatek.Zamek;
 import generator.Generator;
@@ -78,15 +76,10 @@ public class FXML_GuiController implements Initializable {
     @FXML
     private Button btnOdeberMax;
     
-    private AbstrHeap heap = new AbstrHeap();
-    @FXML
-    private ListView<String> listViewString;
-    
     private Gps zvolenaGps;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        listViewString.setItems(itemsVzdalenost);
         listView.setItems(items);
     }    
 
@@ -195,23 +188,6 @@ public class FXML_GuiController implements Initializable {
             
             while(iterator.hasNext()){
                 items.add((Zamek)iterator.next());
-            }
-            
-        }
-    }
-    
-    private void obnovListViewVzdalenost(){
-        itemsVzdalenost.clear();
-        
-        listViewString.setItems(itemsVzdalenost);
-        if(!pamatkyTree.getTree().jePrazdny()){
-            
-            Iterator iterator = pamatkyTree.iterator(druhProhlizeni);
-            
-            while(iterator.hasNext()){
-                Zamek zamek = (Zamek) iterator.next();
-                System.out.println(zamek.toString());
-                itemsVzdalenost.add(zamek.getGpsGps().getVzdalenostOd(zvolenaGps) + zamek.toString());
             }
             
         }
@@ -391,9 +367,9 @@ public class FXML_GuiController implements Initializable {
                 
                 Zamek zamek = new Zamek("zamek", new Gps(dataZCont.substring(0, 11), dataZCont.substring(12, 24)));
                 zvolenaGps = zamek.getGpsGps();
-                AbstrTable stare = pamatkyTree.getTree();
-                
-                obnovListViewVzdalenost();
+                pamatkyTree.nastaveniGps(zvolenaGps);
+                pamatkyTree.vybudujHeap();
+                obnovListView();
                 
             }
             
@@ -405,13 +381,13 @@ public class FXML_GuiController implements Initializable {
 
     @FXML
     private void onActBtnZrusHeap(ActionEvent event) {
-        heap.zrus();
+        
         obnovListView();
     }
 
     @FXML
     private void onActBtnOdeberMax(ActionEvent event) {
-        heap.odeberMax();
+        
         obnovListView();
     }
 

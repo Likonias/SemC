@@ -4,8 +4,10 @@
  */
 package pamatky;
 
+import abstroPackage.AbstrHeap;
 import abstroPackage.AbstrTable;
 import abstroPackage.AbstroDoubleList;
+import druhPamatek.Gps;
 import druhPamatek.Zamek;
 import enums.Enum;
 import java.io.IOException;
@@ -23,6 +25,7 @@ import perzistence.TextovySoubor;
 public class Pamatky<K> implements IPamatky{
 
     private AbstrTable tree = new AbstrTable();
+    private AbstrHeap heap = new AbstrHeap();
     private Enum.druhKlice druhKlice = Enum.druhKlice.GPS;
     
     @Override
@@ -42,6 +45,8 @@ public class Pamatky<K> implements IPamatky{
     public void vlozZamek(Zamek zamek) {
         if(druhKlice == Enum.druhKlice.GPS){
             tree.vloz(zamek.getGps(), zamek);
+        }else if(druhKlice == Enum.druhKlice.VZDALENOST){
+            tree.vloz(zamek.getGpsGps().getVzdalenost(), zamek);
         }else{
             tree.vloz(zamek.getNazevPamatky(), zamek);
         }
@@ -171,4 +176,58 @@ public class Pamatky<K> implements IPamatky{
     public Enum.druhKlice getDruhKlice(){
         return druhKlice;
     }
+    
+    public void nastaveniGps(Gps gps){
+        Iterator iterator = iterator(Enum.eTypProhl.SIRKY);
+        
+        while(iterator.hasNext()){
+            Zamek zamek = (Zamek) iterator.next();
+            zamek.getGpsGps().getVzdalenostOd(gps);
+        }
+        
+    }
+    
+    private int getVelikost(){
+        
+        int velikost = 0;
+        
+        Iterator iterator = iterator(Enum.eTypProhl.SIRKY);
+        
+        while(iterator.hasNext()){
+            iterator.next();
+            velikost++;
+        }
+        
+        return velikost;
+        
+    }
+    
+    public void vybudujHeap(){
+        
+        Enum.druhKlice predeslyKlic = druhKlice;
+        
+        druhKlice = Enum.druhKlice.VZDALENOST;
+        
+        Iterator iterator = iterator(Enum.eTypProhl.HLOUBKY);
+        
+        Zamek[] zamekPole = new Zamek[getVelikost()];
+        
+        for (int i = 0; i < getVelikost(); i++) {
+            if(iterator.hasNext()){
+                zamekPole[i] = (Zamek) iterator.next();
+            }
+        }
+        
+        zamekPole = (Zamek[]) heap.vybuduj(zamekPole);
+        
+        tree.zrus();
+        for (int i = 0; i < zamekPole.length; i++) {
+            vlozZamek(zamekPole[i]);
+        }
+        
+        druhKlice = predeslyKlic;
+        
+    }
+    
+    
 }

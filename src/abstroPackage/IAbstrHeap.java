@@ -14,9 +14,9 @@ import java.util.Iterator;
  */
 public interface IAbstrHeap<T extends Comparable<T>>{
     
-    void vybuduj(T[] pole);
+    T[] vybuduj(T[] zadanePole);
     
-    T[] prebuduj();
+    void prebuduj(T[] zadanePole, int pozice, int i);
     
     void zrus();
     

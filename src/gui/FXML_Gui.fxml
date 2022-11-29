@@ -27,8 +27,7 @@
             <Insets bottom="10.0" top="10.0" />
          </padding>
       </VBox>
-      <ListView fx:id="listViewString" layoutX="252.0" prefHeight="381.0" prefWidth="228.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="252.0" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="10.0" />
-      <ListView fx:id="listView" layoutX="84.0" layoutY="84.0" prefHeight="381.0" prefWidth="244.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="346.0" AnchorPane.topAnchor="10.0" />
+      <ListView fx:id="listView" layoutX="84.0" layoutY="84.0" prefHeight="381.0" prefWidth="473.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="117.0" AnchorPane.topAnchor="10.0" />
       <Button fx:id="btnNacti" layoutX="412.0" layoutY="352.0" mnemonicParsing="false" onAction="#onActBtnNacti" text="Načti" />
       <Button fx:id="btnUloz" layoutX="348.0" layoutY="352.0" mnemonicParsing="false" onAction="#onActBtnUloz" text="Ulož" />
    </children>

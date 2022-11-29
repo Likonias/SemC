@@ -51,7 +51,7 @@ public class Zamek implements Comparable<Zamek>{
 
     @Override
     public String toString() {
-        return "Zamek{" + "id=" + id + ", nazevPamatky=" + nazevPamatky + ", gps=" + gps.getGps() + '}';
+        return "Zamek{" + "id=" + id + ", nazevPamatky=" + nazevPamatky + ", gps=" + gps.getGps() + '}' + gps.getVzdalenost();
     }
 
     @Override

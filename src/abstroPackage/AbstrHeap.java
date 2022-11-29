@@ -13,22 +13,55 @@ import java.util.Iterator;
 public class AbstrHeap<T extends Comparable<T>> implements IAbstrHeap<T>{
 
     T[] pole;
-    int pozice = -1;
+    int velikost;
 
-    private boolean jePlny(){return pozice == pole.length -1;}
+    private boolean jePlny(){return pole[pole.length - 1] != null;}
     
     @Override
-    public void vybuduj(T[] pole) {
+    public T[] vybuduj(T[] zadanePole) {
         //(T[])new Object[pole.length];  nove pole genericky
-        this.pole = pole;
+        
+        pole = zadanePole;
+        velikost = pole.length;
+        
+        for(int i = velikost / 2 - 1; i >= 0; i--){
+            prebuduj(pole, velikost, i);
+        }
+        
+        for(int i = velikost - 1; i > 0; i--){
+            T pomocna = pole[0];
+            pole[0] = pole[i];
+            pole[i] = pomocna;
+            
+            prebuduj(pole, i, 0);
+        }
+        
+        return this.pole;
+        
     }
 
     @Override
-    public T[] prebuduj() {
+    public void prebuduj(T[] zadanePole, int pozice, int i) {
     
-        vybuduj(pole);
+        int next = i;
+        int left = 2 * i + 1;
+        int right = 2 * i + 2;
         
-        return pole;
+        if(left < pozice && pole[left].compareTo(pole[next]) > 0){
+            next = left;
+        }
+        
+        if(right < pozice && pole[right].compareTo(pole[next]) > 0){
+            next = right;
+        }
+        
+        if(next != i){
+            T pomocna = pole[i];
+            pole[i] = pole[next];
+            pole[next] = pomocna;
+            
+            prebuduj(pole, pozice, next);
+        }
         
     }
 
@@ -57,7 +90,18 @@ public class AbstrHeap<T extends Comparable<T>> implements IAbstrHeap<T>{
 
     @Override
     public T odeberMax() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        T[] pomocnePole = (T[])new Object[pole.length-1];
+        
+        T odebranyPrvek = pole[0];
+        
+        for (int i = 0; i < pomocnePole.length; i++) {
+            pomocnePole[i] = pole[i+1];
+        }
+        
+        pole = pomocnePole;
+        
+        return odebranyPrvek;
+        
     }
 
     @Override

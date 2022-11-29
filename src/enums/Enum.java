@@ -30,6 +30,7 @@ public class Enum {
     
     public enum druhKlice{
         GPS,
-        NAZEV;
+        NAZEV,
+        VZDALENOST;
     }
 }
